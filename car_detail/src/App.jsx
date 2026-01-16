@@ -1,35 +1,231 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react"
 
 function App() {
-  const [count, setCount] = useState(0)
+ 
+
+  // dados do cliente
+  const [cpf, setCpf] = useState("")
+  const [nome, setNome] = useState("")
+  const [contato, setContato] = useState("")
+  const [email, setEmail] = useState("")
+
+  //dados do carro
+  const [carro, setCarro] = useState("")
+  const [placa, setPlaca] = useState("")
+  const [modelo, setModelo] = useState("")
+  const [ano, setAno] = useState("")
+  const [cor, setCor] = useState("")
+  const [interior, setInterior] = useState("")
+
+  // serviço
+  const [planoServico, setPlanoServico] = useState("")
+  const [servico, setServico] = useState("") 
+  const [observacoes, setObservacoes] = useState("")
+  const [historicoServicos, setHistoricoServicos] = useState([])
+
+  // add servico ao historico
+  function addServico() {
+    if (!servico) return
+
+    const novoServico = {
+      servico,
+      plano: planoServico || null,
+      observacoes,
+      data: new Date().toLocaleDateString()
+    }
+
+    setHistoricoServicos([...historicoServicos, novoServico])
+
+    setServico("")
+    setPlanoServico("")
+    setObservacoes("")
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault()
+
+    const dados = {
+      cpf,
+      nome,
+      contato,
+      placa,
+      modelo,
+      ano,
+      cor,
+      interior,
+      servicos: historicoServicos
+    }
+
+    console.log(dados)
+  }
 
   return (
     <>
+
       <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+          <h1>Car Detail</h1>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+
+      <form onSubmit={handleSubmit}>
+
+          
+          <fieldset id="dp">
+
+            <legend>Dados pessoais</legend>
+
+            <div>
+              <label>Cpf</label><br />
+              <input 
+              type="text"
+              value={cpf}
+              onChange={(e) => setCpf(e.target.value)}
+            />
+            </div>
+
+            <div>
+              <label>Nome</label><br />
+              <input
+              type="text"
+              value={nome}
+              onChange={(e) => setNome(e.target.value)} />
+            </div>
+
+            <div>
+              <label>Contato</label><br />
+              <input 
+              type="text"
+              value={contato}
+              onChange={(e) => setContato(e.target.value)}
+              />
+            </div>
+
+            <div>
+              <label>E-mail</label><br />
+              <input 
+              type="text"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+
+          </fieldset>
+
+          <fieldset id="dc">
+
+            <legend>Dados do Carro</legend>
+
+            <div>
+              <label>Carro</label><br />
+              <input 
+              type="text"
+              value={carro}
+              onChange={(e) => setCarro(e.target.value)}
+               />
+            </div>
+
+            <div>
+              <label>Placa</label><br />
+              <input 
+              type="text"
+              value={placa}
+              onChange={(e) => setPlaca(e.target.value)}
+               />
+            </div>
+
+            <div>
+              <label>Modelo</label><br />
+              <input 
+              type="text"
+              value={modelo}
+              onChange={(e) => setModelo(e.target.value)}
+               />
+            </div>
+
+            <div>
+              <label>Ano</label><br />
+              <input 
+              type="number"
+              value={ano}
+              onChange={(e) => setAno(e.target.value)}
+               />
+            </div>
+
+            <div>
+              <label>Cor</label><br />
+              <input 
+              type="text"
+              value={cor}
+              onChange={(e) => setCor(e.target.value)}
+               />
+            </div>
+
+            <div>
+              <label>Interior</label><br />
+              <input 
+              type="text"
+              value={interior}
+              onChange={(e) => setInterior(e.target.value)}
+               />
+            </div>
+
+          </fieldset>
+
+          <fieldset id="sa">
+
+            <legend>Serviços do Automóvel</legend>
+
+            <label>Plano de Serviço</label>
+              <div>
+                
+                <select>
+                  value={planoServico}
+                  onChange={(e) => setPlanoServico(e.target.value)}
+
+                  <option value="">Nenhum</option>
+                  <option value="Básico">Básico</option>
+                  <option value="Médio">Médio</option>
+                  <option value="Técnico">Técnico</option>
+
+                </select>
+
+              </div>
+
+              <div>
+                <label>Serviço</label><br />
+                <textarea
+                value={servico}
+                onChange={(e) => setServico(e.target.value)}
+                />
+              </div>
+
+              <div>
+                <label>Observações</label><br />
+                <textarea
+                value={observacoes}
+                onChange={(e) => setObservacoes(e.target.value)}
+                />
+              </div>
+
+              <ul>
+                {historicoServicos.map((s, index) => (
+                  <li key={index}>
+                    <strong>{s.servico}</strong> - {s.data}
+                    {s.plano && <p>Plano: {s.plano}</p>}
+                    {s.observacoes && <p>Obs: {s.observacoes}</p>}
+                  </li>
+                ))}
+              </ul>
+
+          </fieldset>
+
+          <button type="submit">Salvar</button>
+
+      </form>
     </>
+
+    
   )
 }
 
 export default App
+
