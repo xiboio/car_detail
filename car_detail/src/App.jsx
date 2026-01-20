@@ -1,6 +1,7 @@
 import { useState } from "react"
+import ClienteForm from "./components/ClienteForm"
 
-function App() {
+export default function App() {
  
 
   // dados do cliente
@@ -21,16 +22,10 @@ function App() {
   const [planoServico, setPlanoServico] = useState("")
   const [servico, setServico] = useState("") 
   const [observacoes, setObservacoes] = useState("")
-  const [historicoServicos, setHistoricoServicos] = useState([])
   const [historicoAtendimentos, setHistoricoAtendimentos] = useState([])
 
   function handleSubmit(e) {
     e.preventDefault()
-
-    if (historicoServicos.length === 0){
-      alert("Adicione pelo menos um serviço")
-      return
-    }
 
     const atendimento = {
     id: Date.now(),
@@ -119,7 +114,7 @@ function App() {
             <div>
               <label>E-mail</label><br />
               <input 
-              type="text"
+              type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               />
