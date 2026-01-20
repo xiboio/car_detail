@@ -22,42 +22,59 @@ function App() {
   const [servico, setServico] = useState("") 
   const [observacoes, setObservacoes] = useState("")
   const [historicoServicos, setHistoricoServicos] = useState([])
-
-  // add servico ao historico
-  function addServico() {
-    if (!servico) return
-
-    const novoServico = {
-      servico,
-      plano: planoServico || null,
-      observacoes,
-      data: new Date().toLocaleDateString()
-    }
-
-    setHistoricoServicos([...historicoServicos, novoServico])
-
-    setServico("")
-    setPlanoServico("")
-    setObservacoes("")
-  }
+  const [historicoAtendimentos, setHistoricoAtendimentos] = useState([])
 
   function handleSubmit(e) {
     e.preventDefault()
 
-    const dados = {
+    if (historicoServicos.length === 0){
+      alert("Adicione pelo menos um serviço")
+      return
+    }
+
+    const atendimento = {
+    id: Date.now(),
+    data: new Date().toLocaleDateString(),
+    cliente: {
       cpf,
       nome,
       contato,
+      email
+    },
+    carro: {
+      carro,
       placa,
       modelo,
       ano,
       cor,
-      interior,
-      servicos: historicoServicos
+      interior
+    },
+    servicos: {
+      plano: planoServico || null,
+      descricao: servico, observacoes
     }
-
-    console.log(dados)
   }
+
+  setHistoricoAtendimentos([
+    ...historicoAtendimentos,
+    atendimento
+  ])
+
+  alert("Atendimento salvo com sucesso")
+
+  // limpa formulário
+  setCpf("")
+  setNome("")
+  setContato("")
+  setEmail("")
+  setCarro("")
+  setPlaca("")
+  setModelo("")
+  setAno("")
+  setCor("")
+  setInterior("")
+  setHistoricoServicos([])
+}
 
   return (
     <>
@@ -76,7 +93,7 @@ function App() {
             <div>
               <label>Cpf</label><br />
               <input 
-              type="text"
+              type="number"
               value={cpf}
               onChange={(e) => setCpf(e.target.value)}
             />
@@ -128,7 +145,7 @@ function App() {
               <input 
               type="text"
               value={placa}
-              onChange={(e) => setPlaca(e.target.value)}
+              onChange={(e) => setPlaca(e.target.value.toUpperCase())}
                />
             </div>
 
@@ -177,10 +194,11 @@ function App() {
             <label>Plano de Serviço</label>
               <div>
                 
-                <select>
-                  value={planoServico}
-                  onChange={(e) => setPlanoServico(e.target.value)}
-
+                <select
+                value={planoServico}
+                onChange={(e) => setPlanoServico(e.target.value)}
+                >
+                  
                   <option value="">Nenhum</option>
                   <option value="Básico">Básico</option>
                   <option value="Médio">Médio</option>
