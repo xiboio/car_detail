@@ -1,5 +1,7 @@
 import { useState } from "react"
 import ClienteForm from "./components/ClienteForm"
+import CarroForm from "./components/CarroForm"
+import ServicoForm from "./components/ServicoForm"
 
 export default function App() {
  
@@ -80,156 +82,46 @@ export default function App() {
 
       <form onSubmit={handleSubmit}>
 
-          
-          <fieldset id="dp">
+        <ClienteForm
+        
+          cpf={cpf}
+          setCpf={setCpf}
+          nome={nome}
+          setNome={setNome}
+          contato={contato}
+          setContato={setContato}
+          email={email}
+          setEmail={setEmail}
 
-            <legend>Dados pessoais</legend>
+        />
 
-            <div>
-              <label>Cpf</label><br />
-              <input 
-              type="number"
-              value={cpf}
-              onChange={(e) => setCpf(e.target.value)}
-            />
-            </div>
+        <CarroForm
 
-            <div>
-              <label>Nome</label><br />
-              <input
-              type="text"
-              value={nome}
-              onChange={(e) => setNome(e.target.value)} />
-            </div>
+          carro={carro}
+          setCarro={setCarro}
+          placa={placa}
+          setPlaca={setPlaca}
+          modelo={modelo}
+          setModelo={setModelo}
+          ano={ano}
+          setAno={setAno}
+          cor={cor}
+          setCor={setCor}
+          interior={interior}
+          setInterior={setInterior}
 
-            <div>
-              <label>Contato</label><br />
-              <input 
-              type="text"
-              value={contato}
-              onChange={(e) => setContato(e.target.value)}
-              />
-            </div>
+        />
 
-            <div>
-              <label>E-mail</label><br />
-              <input 
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
+        <ServicoForm
 
-          </fieldset>
+          planoServico={planoServico}
+          setPlanoServico={setPlanoServico}
+          servico={servico}
+          setServico={setServico}
+          observacoes={observacoes}
+          setObservacoes={setObservacoes}
 
-          <fieldset id="dc">
-
-            <legend>Dados do Carro</legend>
-
-            <div>
-              <label>Carro</label><br />
-              <input 
-              type="text"
-              value={carro}
-              onChange={(e) => setCarro(e.target.value)}
-               />
-            </div>
-
-            <div>
-              <label>Placa</label><br />
-              <input 
-              type="text"
-              value={placa}
-              onChange={(e) => setPlaca(e.target.value.toUpperCase())}
-               />
-            </div>
-
-            <div>
-              <label>Modelo</label><br />
-              <input 
-              type="text"
-              value={modelo}
-              onChange={(e) => setModelo(e.target.value)}
-               />
-            </div>
-
-            <div>
-              <label>Ano</label><br />
-              <input 
-              type="number"
-              value={ano}
-              onChange={(e) => setAno(e.target.value)}
-               />
-            </div>
-
-            <div>
-              <label>Cor</label><br />
-              <input 
-              type="text"
-              value={cor}
-              onChange={(e) => setCor(e.target.value)}
-               />
-            </div>
-
-            <div>
-              <label>Interior</label><br />
-              <input 
-              type="text"
-              value={interior}
-              onChange={(e) => setInterior(e.target.value)}
-               />
-            </div>
-
-          </fieldset>
-
-          <fieldset id="sa">
-
-            <legend>Serviços do Automóvel</legend>
-
-            <label>Plano de Serviço</label>
-              <div>
-                
-                <select
-                value={planoServico}
-                onChange={(e) => setPlanoServico(e.target.value)}
-                >
-                  
-                  <option value="">Nenhum</option>
-                  <option value="Básico">Básico</option>
-                  <option value="Médio">Médio</option>
-                  <option value="Técnico">Técnico</option>
-
-                </select>
-
-              </div>
-
-              <div>
-                <label>Serviço</label><br />
-                <textarea
-                value={servico}
-                onChange={(e) => setServico(e.target.value)}
-                />
-              </div>
-
-              <div>
-                <label>Observações</label><br />
-                <textarea
-                value={observacoes}
-                onChange={(e) => setObservacoes(e.target.value)}
-                />
-              </div>
-
-              <ul>
-                {historicoServicos.map((s, index) => (
-                  <li key={index}>
-                    <strong>{s.servico}</strong> - {s.data}
-                    {s.plano && <p>Plano: {s.plano}</p>}
-                    {s.observacoes && <p>Obs: {s.observacoes}</p>}
-                  </li>
-                ))}
-              </ul>
-
-          </fieldset>
+        />
 
           <button type="submit">Salvar</button>
 
@@ -240,5 +132,5 @@ export default function App() {
   )
 }
 
-export default App
+
 

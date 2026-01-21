@@ -1,46 +1,51 @@
 export default function ClienteForm({
-    cpf,
-    setCpf,
-    nome,
-    setNome,
-    contato,
-    setContato,
-    email,
-    setEmail
-})
+    cpf, setCpf,
+    nome, setNome,
+    contato, setContato,
+    email, setEmail
+})  {
 
-{
     return (
         <fieldset>
-            <legend>Dados do Cliente</legend>
 
-            <input
-            type="text"
-            placeholder="CPF"
-            value={cpf}
-            onChange={(e) => setCpf(e.target.value)}
-            />
+            <legend>Dados pessoais</legend>
 
-            <input
-            type="text"
-            placeholder="Nome"
-            value={nome}
-            onChange={(e) => setNome(e.target.value)}
-            />
+            <div>
+                <label>CPF</label><br />
+                <input
+                type="number"
+                value={cpf}
+                onChange={(e) => setCpf(e.target.value)}
+                />
+            </div>
 
-            <input
-            type="text"
-            placeholder="Contato"
-            value={contato}
-            onChange={(e) => setContato(e.target.value)} 
-            />
+            <div>
+                <label>Nome</label><br />
+                <input
+                type="text"
+                value={nome}
+                onChange={(e) => setNome(e.target.value)}
+                />
+            </div>
 
-            <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            />
+            <div>
+                <label>Contato</label><br />
+                <input
+                type="text"
+                value={contato}
+                onChange={(e) => setContato(e.target.value)}
+                />
+            </div>
+
+            <div>
+                <label>E-mail</label><br />
+                <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                />
+            </div>
+
         </fieldset>
     )
 }
