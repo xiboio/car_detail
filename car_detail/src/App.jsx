@@ -26,36 +26,46 @@ export default function App() {
   const [observacoes, setObservacoes] = useState("")
   const [historicoAtendimentos, setHistoricoAtendimentos] = useState([])
 
+  
+
   function handleSubmit(e) {
+
     e.preventDefault()
 
+    if (!cpf || cpf.length < 11){
+      alert("CPF inválido")
+      return
+    }
+
+    if (!nome) {
+      alert("Informe o nome do cliente")
+      return
+    }
+
+    if (!placa || placa.length < 7){
+      alert("Placa inválida")
+      return
+    }
+
+    if (!servico) {
+      alert("Descreva o serviço")
+      return
+    }
+
     const atendimento = {
+
     id: Date.now(),
     data: new Date().toLocaleDateString(),
-    cliente: {
-      cpf,
-      nome,
-      contato,
-      email
-    },
-    carro: {
-      carro,
-      placa,
-      modelo,
-      ano,
-      cor,
-      interior
-    },
+
+    cliente: { cpf, nome, contato, email },
+    carro: { carro, placa, modelo, ano, cor, interior},
     servicos: {
       plano: planoServico || null,
       descricao: servico, observacoes
     }
   }
 
-  setHistoricoAtendimentos([
-    ...historicoAtendimentos,
-    atendimento
-  ])
+  setHistoricoAtendimentos([...historicoAtendimentos, atendimento])
 
   alert("Atendimento salvo com sucesso")
 
@@ -83,7 +93,7 @@ export default function App() {
       <form onSubmit={handleSubmit}>
 
         <ClienteForm
-        
+
           cpf={cpf}
           setCpf={setCpf}
           nome={nome}

@@ -7,7 +7,11 @@ export default function CarroForm({
     interior, setInterior
 
 }) {
-    
+
+    function handlePlacaChange(value) {
+        setPlaca(value.toUpperCase().replace(/[^A-Z0-9]/g, ""))
+    }
+
     return (
 
         <fieldset id="dc">
@@ -28,7 +32,7 @@ export default function CarroForm({
               <input 
               type="text"
               value={placa}
-              onChange={(e) => setPlaca(e.target.value.toUpperCase())}
+              onChange={(e) => handlePlacaChange(e.target.value)}
                />
             </div>
 

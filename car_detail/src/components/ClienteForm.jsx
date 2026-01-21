@@ -5,6 +5,48 @@ export default function ClienteForm({
     email, setEmail
 })  {
 
+    function handleCpfChange(value) {
+
+    let cpfLimpo = value.replace(/\D/g, "")
+
+    cpfLimpo = cpfLimpo.slice(0, 11)
+
+    cpfLimpo = cpfLimpo.replace(
+      /(\d{3})(\d{3})(\d{3})(\d{2})/,
+      "$1.$2.$3-$4"
+    )
+
+    setCpf(cpfLimpo)
+
+  }
+
+  function handleContatoChange(value) {
+  let telefone = value.replace(/\D/g, "")
+
+  telefone = telefone.slice(0, 11)
+
+  if (telefone.length <= 10) {
+
+    // formato fixo (11) 1234-5678
+    telefone = telefone.replace(
+      /(\d{2})(\d{4})(\d{0,4})/,
+      "($1) $2-$3"
+    )
+
+  } else {
+
+    // formato celular (11) 91234-5678
+    telefone = telefone.replace(
+      /(\d{2})(\d{5})(\d{0,4})/,
+      "($1) $2-$3"
+    )
+
+  }
+
+  setContato(telefone)
+
+}
+
     return (
         <fieldset>
 
@@ -13,9 +55,9 @@ export default function ClienteForm({
             <div>
                 <label>CPF</label><br />
                 <input
-                type="number"
+                type="text"
                 value={cpf}
-                onChange={(e) => setCpf(e.target.value)}
+                onChange={(e) => handleCpfChange(e.target.value)}
                 />
             </div>
 
@@ -33,7 +75,7 @@ export default function ClienteForm({
                 <input
                 type="text"
                 value={contato}
-                onChange={(e) => setContato(e.target.value)}
+                onChange={(e) => handleContatoChange(e.target.value)}
                 />
             </div>
 
