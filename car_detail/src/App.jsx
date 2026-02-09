@@ -46,18 +46,8 @@ export default function App() {
 
     e.preventDefault()
 
-    if (!cpf || cpf.length < 11){
-      alert("CPF inválido")
-      return
-    }
-
     if (!nome) {
       alert("Informe o nome do cliente")
-      return
-    }
-
-    if (!placa || placa.length < 7){
-      alert("Placa inválida")
       return
     }
 
