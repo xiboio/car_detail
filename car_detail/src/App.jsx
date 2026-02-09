@@ -1,7 +1,8 @@
-import { useState } from "react"
+import { use, useState } from "react"
 import ClienteForm from "./components/ClienteForm"
 import CarroForm from "./components/CarroForm"
 import ServicoForm from "./components/ServicoForm"
+import { useEffect } from "react" 
 
 export default function App() {
  
@@ -26,7 +27,20 @@ export default function App() {
   const [observacoes, setObservacoes] = useState("")
   const [historicoAtendimentos, setHistoricoAtendimentos] = useState([])
 
-  
+  useEffect(() => {
+    const dadosSalvos = localStorage.getItem("atendimentos")
+
+    if (dadosSalvos) {
+      setHistoricoAtendimentos(JSON.parse(dadosSalvos))
+    }
+  }, [])
+
+  useEffect(() => {
+    localStorage.setItem(
+      "atendimentos",
+      JSON.stringify(historicoAtendimentos)
+    )
+  }, [historicoAtendimentos])
 
   function handleSubmit(e) {
 
