@@ -58,14 +58,29 @@ export default function App() {
 
     const atendimento = {
 
-    id: Date.now(),
-    data: new Date().toLocaleDateString(),
+      id: Date.now(),
+      data: new Date().toISOString(),
 
-    cliente: { cpf, nome, contato, email },
-    carro: { carro, placa, modelo, ano, cor, interior},
-    servicos: {
+      cliente: { 
+        cpf,
+        nome,
+        contato, 
+        email 
+      },
+
+      veiculo: { 
+        carro, 
+        placa, 
+        modelo, 
+        ano, 
+        cor, 
+        interior
+      },
+
+      servicos: {
       plano: planoServico || null,
-      descricao: servico, observacoes
+      descricao: servico,
+      observacoes
     }
   }
 
