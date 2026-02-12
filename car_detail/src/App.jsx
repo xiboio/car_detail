@@ -1,8 +1,7 @@
-import { use, useState } from "react"
+import { useState, useEffect } from "react"
 import ClienteForm from "./components/ClienteForm"
 import CarroForm from "./components/CarroForm"
 import ServicoForm from "./components/ServicoForm"
-import { useEffect } from "react" 
 
 export default function App() {
  
@@ -46,12 +45,20 @@ export default function App() {
 
     e.preventDefault()
 
-    if (!nome) {
+    const cpfPadrao = cpf.replace(/\D/g, "")
+    const nomePadrao = nome.trim()
+    const contatoPadrao = contato.replace(/\D/g, "")
+    const emailPadrao = email.trim()
+    const placaPadrao = placa.replace(/\s/g, "").toUpperCase()
+    const servicoPadrao = servico.trim()
+    const obsPadrao = observacoes.trim()
+
+    if (!nomePadrao) {
       alert("Informe o nome do cliente")
       return
     }
 
-    if (!servico) {
+    if (!servicoPadrao) {
       alert("Descreva o serviço")
       return
     }
@@ -62,15 +69,15 @@ export default function App() {
       data: new Date().toISOString(),
 
       cliente: { 
-        cpf,
-        nome,
-        contato, 
-        email 
+        cpf :cpfPadrao,
+        nome: nomePadrao,
+        contato: contatoPadrao, 
+        email: emailPadrao 
       },
 
       veiculo: { 
         carro, 
-        placa, 
+        placa: placaPadrao, 
         modelo, 
         ano, 
         cor, 
@@ -79,12 +86,12 @@ export default function App() {
 
       servicos: {
       plano: planoServico || null,
-      descricao: servico,
-      observacoes
+      descricao: servicoPadrao,
+      observacoes: obsPadrao
     }
   }
 
-  setHistoricoAtendimentos([...historicoAtendimentos, atendimento])
+  setHistoricoAtendimentos(prev => [...prev, atendimento])
 
   alert("Atendimento salvo com sucesso")
 
@@ -99,7 +106,9 @@ export default function App() {
   setAno("")
   setCor("")
   setInterior("")
-  setHistoricoServicos([])
+  setPlanoServico("")
+  setServico("")
+  setObservacoes("")
 }
 
   return (
