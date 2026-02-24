@@ -4,7 +4,7 @@ import CarroForm from "./components/CarroForm"
 import ServicoForm from "./components/ServicoForm"
 
 import {
-  buscarAtendimentos,
+  buscarAtendimento,
   SalvarAtendimento,
   salvarAtendimentos
 } from "./services/atendimentoService"
@@ -33,7 +33,7 @@ export default function App() {
   const [historicoAtendimentos, setHistoricoAtendimentos] = useState([])
 
   useEffect(() => {
-    const dados = buscarAtendimentos()
+    const dados = buscarAtendimento()
     setHistoricoAtendimentos(dados)
   }, [])
 
