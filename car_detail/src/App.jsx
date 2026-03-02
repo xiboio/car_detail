@@ -6,7 +6,6 @@ import ServicoForm from "./components/ServicoForm"
 import {
   buscarAtendimento,
   SalvarAtendimento,
-  salvarAtendimentos
 } from "./services/atendimentoService"
 
 export default function App() {
