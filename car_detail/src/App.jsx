@@ -3,11 +3,6 @@ import ClienteForm from "./components/ClienteForm"
 import CarroForm from "./components/CarroForm"
 import ServicoForm from "./components/ServicoForm"
 
-import {
-  buscarAtendimento,
-  SalvarAtendimento,
-} from "./services/atendimentoService"
-
 export default function App() {
  
 
@@ -29,16 +24,6 @@ export default function App() {
   const [planoServico, setPlanoServico] = useState("")
   const [servico, setServico] = useState("") 
   const [observacoes, setObservacoes] = useState("")
-  const [historicoAtendimentos, setHistoricoAtendimentos] = useState([])
-
-  useEffect(() => {
-    const dados = buscarAtendimento()
-    setHistoricoAtendimentos(dados)
-  }, [])
-
-  useEffect(() => {
-    SalvarAtendimento(historicoAtendimentos)
-  }, [historicoAtendimentos])
 
   function handleSubmit(e) {
 
@@ -62,53 +47,58 @@ export default function App() {
       return
     }
 
-    const atendimento = {
+    console.log("Enviando dados!")
 
-      id: Date.now(),
-      data: new Date().toISOString(),
-
-      cliente: { 
-        cpf :cpfPadrao,
+    fetch("http://localhost:3001/atendimentos", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        data: new Date().toISOString().slice(0, 19).replace("T", " "),
+        cpf: cpfPadrao,
         nome: nomePadrao,
-        contato: contatoPadrao, 
-        email: emailPadrao 
-      },
+        contato: contatoPadrao,
+        email: emailPadrao,
+        carro,
+        placa: placaPadrao,
+        modelo,
+        ano,
+        cor,
+        interior,
+        plano: planoServico,
+        descricao: servicoPadrao,
+        observacoes: obsPadrao
+      })
+    })
+    .then(res => res.text())
+    .then(msg => {
+      alert(msg)
 
-      veiculo: { 
-        carro, 
-        placa: placaPadrao, 
-        modelo, 
-        ano, 
-        cor, 
-        interior
-      },
+      // limpa formulário
+      setCpf("")
+      setNome("")
+      setContato("")
+      setEmail("")
+      setCarro("")
+      setPlaca("")
+      setModelo("")
+      setAno("")
+      setCor("")
+      setInterior("")
+      setPlanoServico("")
+      setServico("")
+      setObservacoes("")
 
-      servicos: {
-      plano: planoServico || null,
-      descricao: servicoPadrao,
-      observacoes: obsPadrao
-    }
+    })
+    .catch(err => {
+      console.error("Erro:", err)
+    })
+
   }
 
-  setHistoricoAtendimentos(prev => [...prev, atendimento])
-
-  alert("Atendimento salvo com sucesso")
-
-  // limpa formulário
-  setCpf("")
-  setNome("")
-  setContato("")
-  setEmail("")
-  setCarro("")
-  setPlaca("")
-  setModelo("")
-  setAno("")
-  setCor("")
-  setInterior("")
-  setPlanoServico("")
-  setServico("")
-  setObservacoes("")
-}
+  
+ 
 
   return (
     <>
