@@ -20,7 +20,7 @@ export default function BuscarAtendimento(){
 
     return(
 
-        <div>
+        <div className="containerBuscar">
             <h1>Busque o veículo</h1>
 
             <input type="text"
@@ -39,11 +39,7 @@ export default function BuscarAtendimento(){
 
             {atendimentos.map((a, i) => (
                 
-                <div key={i} style={{
-                    border: "1px solid #ccc",
-                    padding: "10px",
-                    marginBottom: "10px"
-                }}>
+                <div key={i} className="card">
 
                     <p><b>Data:</b> {a.data}</p>
                     <p><b>Cpf:</b> {a.cpf}</p>

@@ -2,6 +2,7 @@ import { useState } from "react"
 import ClienteForm from "../components/ClienteForm"
 import CarroForm from "../components/CarroForm"
 import ServicoForm from "../components/ServicoForm"
+
     
     export default function NovoAtendimento() {
      
@@ -99,8 +100,8 @@ import ServicoForm from "../components/ServicoForm"
   
       return (
         <>
-    
-          <div>
+        <div className="containerSalvar">
+          <div className="title">
               <h1>Car Detail</h1>
           </div>
     
@@ -147,9 +148,11 @@ import ServicoForm from "../components/ServicoForm"
     
             />
     
-              <button type="submit">Salvar</button>
+              <button type="submit" className="btnsave">Salvar</button>
     
           </form>
+
+        </div>
         </>
     
         
