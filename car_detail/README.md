@@ -1,16 +1,28 @@
-# React + Vite
+# Car Detail
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Interface de cadastro e consulta de atendimentos de estética automotiva em React e Vite.
 
-Currently, two official plugins are available:
+## Executar
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Abra o terminal na pasta car_detail que contém package.json e execute:
 
-## React Compiler
+npm install
+npm run dev
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Para gerar a versão de produção: npm run build.
 
-## Expanding the ESLint configuration
+## Servidor
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Por padrão, a interface usa http://localhost:3001. O backend e o MySQL precisam estar configurados e em execução para salvar e consultar atendimentos.
+
+Para usar outro servidor, copie .env.example para .env.local e ajuste VITE_API_URL. Reinicie o Vite após alterar a variável.
+
+Rotas utilizadas:
+- POST /atendimentos
+- GET /atendimentos/placa/:placa
+
+## Interface
+
+Navegação entre cadastro e busca; formulários de cliente, veículo e serviço; resumo durante o preenchimento; layout responsivo; mensagens de sucesso, carregamento, ausência de resultados e falha. Em caso de erro ao salvar, os campos são preservados. Todos os dados do atendimento continuam disponíveis nos detalhes da busca.
+
+Os desenhos e ícones são SVG locais. A fonte DM Sans utiliza Google Fonts, com fallback para Arial se indisponível.
